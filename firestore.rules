@@ -1,0 +1,232 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper function to check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Helper function to check if user is admin
+    // Supports multiple methods: email check OR role field check
+    // Supports both uppercase and lowercase for backward compatibility
+    // Requirement 10.4: Recognizes ADMIN as one of three valid roles
+    function isAdmin() {
+      return isAuthenticated() && 
+             (request.auth.token.email == 'admin@gmail.com' ||
+              request.auth.token.email == 'krishna@gmail.com' ||
+              (exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+               get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['ADMIN', 'Admin', 'admin']));
+    }
+    
+    // Helper function to check if user is security
+    // Checks if email contains 'security' or if user has security role
+    // Requirement 10.4: Recognizes SECURITY as one of three valid roles
+    function isSecurity() {
+      return isAuthenticated() && 
+             (request.auth.token.email.lower().matches('.*security.*') ||
+              (exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+               get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['SECURITY', 'Security', 'security']) ||
+              isAdmin());
+    }
+    
+    // Helper function to check if user owns the resource
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    // Helper function to check if user is moderator or admin
+    // Supports both uppercase and lowercase for backward compatibility
+    // Requirement 10.4: MODERATOR role is deprecated, maps to SECURITY or ADMIN
+    // This function now checks for SECURITY or ADMIN roles
+    function isModerator() {
+      return isAuthenticated() && 
+             exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['ADMIN', 'SECURITY', 'MODERATOR', 'admin', 'security', 'moderator'];
+    }
+    
+    // Helper function to check for Security or Admin roles
+    // Supports multiple role formats for backward compatibility
+    function isSecurityOrAdmin() {
+      return isSecurity() || isAdmin();
+    }
+    
+    // Items collection rules
+    match /items/{itemId} {
+      // All authenticated users can read all items regardless of status
+      // This allows browsing of Lost, Found, Returned, Rejected, and Pending items
+      // Requirements: 5.1, 5.2, 5.3, 6.2, 6.3, 6.4
+      allow read: if isAuthenticated();
+      
+      // Users can create items with their own userId OR Security/Admin can create for anyone
+      // New items default to "Pending" status until approved by Security/Admin
+      allow create: if (isAuthenticated() && 
+                       request.auth.uid == request.resource.data.userId &&
+                       request.resource.data.status == 'Pending') || 
+                       isSecurityOrAdmin();
+      
+      // Users can update their own items (but not status, approvedBy, approvalDate)
+      // Security/Admin can update anything including approval fields
+      // Users can only update their own items that are in Pending status
+      allow update: if (isAuthenticated() && 
+                       resource.data.userId == request.auth.uid && 
+                       resource.data.status == 'Pending' &&
+                       !('status' in request.resource.data.diff(resource.data).affectedKeys()) &&
+                       !('approvedBy' in request.resource.data.diff(resource.data).affectedKeys()) &&
+                       !('approvalDate' in request.resource.data.diff(resource.data).affectedKeys()) &&
+                       !('userId' in request.resource.data.diff(resource.data).affectedKeys())) || 
+                       isSecurityOrAdmin();
+      
+      // Users can delete their own items only if they are in Pending status
+      // Security/Admin can delete any item regardless of status
+      allow delete: if (isAuthenticated() && 
+                       resource.data.userId == request.auth.uid && 
+                       resource.data.status == 'Pending') || 
+                       isSecurityOrAdmin();
+    }
+    
+    // Claim Requests collection rules
+    match /claimRequests/{requestId} {
+      // Users can read their own claim requests, Security/Admin can read all
+      allow read: if isAuthenticated() && 
+                     (resource.data.userId == request.auth.uid || isSecurityOrAdmin());
+      
+      // Users can create claim requests with their own userId
+      allow create: if isAuthenticated() && request.auth.uid == request.resource.data.userId;
+      
+      // Only Security/Admin can update claim requests (for approval/rejection)
+      // Users cannot modify their own requests after submission
+      allow update: if isSecurityOrAdmin();
+      
+      // Users can delete their own pending claim requests, Security/Admin can delete any
+      allow delete: if (isAuthenticated() && resource.data.userId == request.auth.uid && 
+                       resource.data.status == 'Pending') || 
+                       isSecurityOrAdmin();
+    }
+    
+    // Item Requests collection rules
+    match /itemRequests/{requestId} {
+      // Users can read their own item requests, Security/Admin can read all
+      allow read: if isAuthenticated() && 
+                     (resource.data.userId == request.auth.uid || isSecurityOrAdmin());
+      
+      // Allow list queries for authenticated users (they can only see their own via query filters)
+      allow list: if isAuthenticated();
+      
+      // Users can create item requests with their own userId
+      allow create: if isAuthenticated() && request.auth.uid == request.resource.data.userId;
+      
+      // Only Security/Admin can update item requests (for approval/rejection)
+      // Users cannot modify their own requests after submission
+      allow update: if isSecurityOrAdmin();
+      
+      // Users can delete their own pending item requests, Security/Admin can delete any
+      allow delete: if (isAuthenticated() && resource.data.userId == request.auth.uid && 
+                       resource.data.status == 'Pending') || 
+                       isSecurityOrAdmin();
+    }
+    
+    // Users collection rules
+    match /users/{userId} {
+      // All authenticated users can read user profiles (needed to see contact info for items)
+      // This is required for the lost & found functionality
+      allow read: if isAuthenticated();
+      
+      // Users can create their own profile
+      allow create: if isOwner(userId);
+      
+      // Users can update their own profile (basic fields only)
+      // Only admins can modify role, isBlocked, and admin-specific fields
+      allow update: if (isOwner(userId) && 
+                       !('role' in request.resource.data.diff(resource.data).affectedKeys()) &&
+                       !('isBlocked' in request.resource.data.diff(resource.data).affectedKeys()) &&
+                       !('blockReason' in request.resource.data.diff(resource.data).affectedKeys()) &&
+                       !('blockedBy' in request.resource.data.diff(resource.data).affectedKeys())) ||
+                       isAdmin();
+      
+      // Only admins can delete users
+      allow delete: if isAdmin();
+    }
+    
+    // Activities collection rules (legacy admin audit log)
+    match /activities/{activityId} {
+      // Security and Admins can read activities
+      allow read: if isSecurityOrAdmin();
+      
+      // Security and Admins can create activities
+      allow create: if isSecurityOrAdmin();
+      
+      // No updates or deletes allowed on activities (audit trail)
+      allow update, delete: if false;
+    }
+    
+    // Activity Logs collection rules (enhanced audit log)
+    match /activityLogs/{logId} {
+      // Only admins can read activity logs
+      allow read: if isAdmin();
+      
+      // Only admins can create activity logs (server-side writes)
+      allow create: if isAdmin();
+      
+      // No updates or deletes allowed on activity logs (immutable audit trail)
+      allow update, delete: if false;
+    }
+    
+    // Donations collection rules
+    match /donations/{donationId} {
+      // Only admins can read donations
+      allow read: if isAdmin();
+      
+      // Only admins can create/update donations
+      allow create, update: if isAdmin();
+      
+      // Only admins can delete donations
+      allow delete: if isAdmin();
+    }
+    
+    // Notifications collection rules
+    match /notifications/{notificationId} {
+      // Users can read their own notifications, Security/Admin can read all
+      allow read: if isAuthenticated() && 
+                     (resource.data.userId == request.auth.uid || isSecurityOrAdmin());
+      
+      // Security/Admin can create notifications, users can create for themselves
+      allow create: if (isAuthenticated() && request.auth.uid == request.resource.data.userId) ||
+                       isSecurityOrAdmin();
+      
+      // Users can update their own notifications (mark as read), Security/Admin can update all
+      allow update: if (isAuthenticated() && resource.data.userId == request.auth.uid) ||
+                       isSecurityOrAdmin();
+      
+      // Only Security/Admin can delete notifications
+      allow delete: if isSecurityOrAdmin();
+    }
+    
+    // Notification History collection rules
+    match /notificationHistory/{historyId} {
+      // Users can read their own notification history, admins can read all
+      allow read: if isAuthenticated() && 
+                 (resource.data.userId == request.auth.uid || isAdmin());
+      
+      // Only admins can create notification history entries
+      allow create: if isAdmin();
+      
+      // Only admins can update notification history (for tracking opens)
+      allow update: if isAdmin();
+      
+      // No deletes allowed on notification history
+      allow delete: if false;
+    }
+    
+    // Admin-specific collections
+    match /admin/{document=**} {
+      // Only admins can access admin collections
+      allow read, write: if isAdmin();
+    }
+    
+    // Default deny rule for any other collections
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

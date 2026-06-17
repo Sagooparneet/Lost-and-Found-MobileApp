@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    
+    <!-- Simplified monochrome icon for notifications -->
+    <!-- Magnifying glass -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M 10,4 A 6,6 0 1,0 10,16 A 6,6 0 1,0 10,4 Z M 10,14 A 4,4 0 1,1 10,6 A 4,4 0 1,1 10,14 Z" />
+    
+    <!-- Handle -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M 14,14 L 13,13 L 19,19 L 20,20 L 21,19 L 20,18 L 14,14 Z" />
+    
+    <!-- Location pin -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M 10,8 C 9.2,8 8.5,8.7 8.5,9.5 C 8.5,10.5 10,12.5 10,12.5 C 10,12.5 11.5,10.5 11.5,9.5 C 11.5,8.7 10.8,8 10,8 Z" />
+</vector>

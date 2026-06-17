@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- External files directory for exports -->
+    <external-files-path
+        name="export_files"
+        path="Documents/LostFoundExports/" />
+    
+    <!-- External storage for general files -->
+    <external-path
+        name="external_files"
+        path="." />
+    
+    <!-- Cache directory for temporary files -->
+    <cache-path
+        name="cache_files"
+        path="." />
+</paths>

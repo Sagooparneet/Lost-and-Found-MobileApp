@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/security_navigation"
+    app:startDestination="@+id/navigation_security_dashboard">
+
+    <!-- Dashboard Screen -->
+    <fragment
+        android:id="@+id/navigation_security_dashboard"
+        android:name="com.example.loginandregistration.security.ui.dashboard.SecurityDashboardFragment"
+        android:label="Security Dashboard"
+        tools:layout="@layout/fragment_security_dashboard" />
+
+    <!-- All Reports Screen -->
+    <fragment
+        android:id="@+id/navigation_security_reports"
+        android:name="com.example.loginandregistration.security.ui.dashboard.SecurityReportsFragment"
+        android:label="All Reports"
+        tools:layout="@layout/fragment_security_reports" />
+
+    <!-- Create Report Screen -->
+    <fragment
+        android:id="@+id/navigation_security_create"
+        android:name="com.example.loginandregistration.security.ui.dashboard.SecurityCreateFragment"
+        android:label="Create Report"
+        tools:layout="@layout/fragment_security_create" />
+
+    <!-- Profile Screen -->
+    <fragment
+        android:id="@+id/navigation_security_profile"
+        android:name="com.example.loginandregistration.security.ui.profile.SecurityProfileFragment"
+        android:label="Security Profile"
+        tools:layout="@layout/fragment_security_profile" />
+
+</navigation>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="80dp"
+    android:height="80dp"
+    android:viewportWidth="80"
+    android:viewportHeight="80">
+    
+    <!-- White circular background with shadow effect -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M 40,5 A 35,35 0 1,1 40,75 A 35,35 0 1,1 40,5 Z" />
+    
+    <!-- Subtle inner circle for depth -->
+    <path
+        android:fillColor="#F8F8FF"
+        android:pathData="M 40,10 A 30,30 0 1,1 40,70 A 30,30 0 1,1 40,10 Z" />
+    
+    <!-- Magnifying glass circle -->
+    <path
+        android:fillColor="#8B7ED8"
+        android:strokeWidth="3"
+        android:strokeColor="#8B7ED8"
+        android:pathData="M 35,25 A 12,12 0 1,0 35,49 A 12,12 0 1,0 35,25 Z M 35,46 A 9,9 0 1,1 35,28 A 9,9 0 1,1 35,46 Z" />
+    
+    <!-- Magnifying glass handle with gradient effect -->
+    <path
+        android:fillColor="#8B7ED8"
+        android:pathData="M 44,44 L 42.5,42.5 L 52,52 L 55,55 L 57.5,52.5 L 54.5,49.5 L 44,44 Z" />
+    
+    <!-- Location pin inside magnifying glass -->
+    <path
+        android:fillColor="#FFD700"
+        android:pathData="M 35,32 C 33.3,32 32,33.3 32,35 C 32,37.2 35,41 35,41 C 35,41 38,37.2 38,35 C 38,33.3 36.7,32 35,32 Z M 35,36 C 34.4,36 34,35.6 34,35 C 34,34.4 34.4,34 35,34 C 35.6,34 36,34.4 36,35 C 36,35.6 35.6,36 35,36 Z" />
+    
+    <!-- Sparkle effects for "found" feeling -->
+    <path
+        android:fillColor="#FFD700"
+        android:pathData="M 25,28 L 23,30 L 25,32 L 27,30 Z" />
+    <path
+        android:fillColor="#FFD700"
+        android:pathData="M 45,28 L 43,30 L 45,32 L 47,30 Z" />
+    <path
+        android:fillColor="#FFD700"
+        android:fillAlpha="0.7"
+        android:pathData="M 22,40 L 20,42 L 22,44 L 24,42 Z" />
+    <path
+        android:fillColor="#FFD700"
+        android:fillAlpha="0.7"
+        android:pathData="M 58,38 L 56,40 L 58,42 L 60,40 Z" />
+</vector>

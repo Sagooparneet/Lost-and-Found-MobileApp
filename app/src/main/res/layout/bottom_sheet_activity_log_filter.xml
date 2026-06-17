@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingBottom="16dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Filter Activity Logs"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black" />
+
+        <Button
+            android:id="@+id/btnClearFilters"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Clear All"
+            android:textColor="?attr/colorPrimary" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxHeight="500dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Date Range Filter -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date Range"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="8dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:hint="Start Date"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etStartDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:clickable="true"
+                        android:inputType="none" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:hint="End Date"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etEndDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:clickable="true"
+                        android:inputType="none" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <!-- User Email Filter -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="User Email"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="16dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="Filter by user email"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etUserEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Action Type Filter -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Action Types"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select action types to filter"
+                android:textSize="12sp"
+                android:textColor="@android:color/darker_gray"
+                android:layout_marginTop="4dp" />
+
+            <!-- User Actions -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="User Actions"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="12dp" />
+
+            <CheckBox
+                android:id="@+id/cbUserLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="User Login" />
+
+            <CheckBox
+                android:id="@+id/cbUserLogout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="User Logout" />
+
+            <CheckBox
+                android:id="@+id/cbUserRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="User Registration" />
+
+            <CheckBox
+                android:id="@+id/cbItemReport"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Item Reported" />
+
+            <CheckBox
+                android:id="@+id/cbItemRequest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Item Requested" />
+
+            <CheckBox
+                android:id="@+id/cbItemClaim"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Item Claimed" />
+
+            <!-- Admin Actions -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Admin Actions"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="12dp" />
+
+            <CheckBox
+                android:id="@+id/cbUserBlock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="User Blocked" />
+
+            <CheckBox
+                android:id="@+id/cbUserUnblock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="User Unblocked" />
+
+            <CheckBox
+                android:id="@+id/cbUserRoleChange"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="User Role Changed" />
+
+            <CheckBox
+                android:id="@+id/cbUserEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="User Edited" />
+
+            <CheckBox
+                android:id="@+id/cbItemEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Item Edited" />
+
+            <CheckBox
+                android:id="@+id/cbItemStatusChange"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Item Status Changed" />
+
+            <CheckBox
+                android:id="@+id/cbItemDelete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Item Deleted" />
+
+            <CheckBox
+                android:id="@+id/cbDonationMarkReady"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Marked Ready for Donation" />
+
+            <CheckBox
+                android:id="@+id/cbDonationComplete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Donation Completed" />
+
+            <CheckBox
+                android:id="@+id/cbNotificationSend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Notification Sent" />
+
+            <!-- Target Entity Type Filter -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Target Entity Type"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="16dp" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroupTargetType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:singleSelection="false">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipTargetUser"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="User" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipTargetItem"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Item" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipTargetDonation"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Donation" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipTargetNotification"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Notification" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipTargetSystem"
+                    style="@style/Widget.MaterialComponents.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="System" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!-- Action Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:gravity="end">
+
+        <Button
+            android:id="@+id/btnCancel"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:layout_marginEnd="8dp" />
+
+        <Button
+            android:id="@+id/btnApplyFilters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Apply Filters" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:minHeight="200dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/select_report_type"
+        android:textColor="@color/text_primary"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/select_report_type_message"
+        android:textColor="@color/text_secondary"
+        android:textSize="14sp"
+        android:layout_marginBottom="24dp" />
+
+    <Button
+        android:id="@+id/btn_report_lost"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@drawable/button_primary_background"
+        android:text="@string/report_lost_item"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="12dp"
+        android:drawableStart="@drawable/ic_add_white"
+        android:drawablePadding="8dp"
+        android:gravity="center" />
+
+    <Button
+        android:id="@+id/btn_report_found"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@drawable/button_secondary_background"
+        android:text="@string/report_found_item"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:drawableStart="@drawable/ic_add_white"
+        android:drawablePadding="8dp"
+        android:gravity="center"
+        android:layout_marginBottom="8dp" />
+
+</LinearLayout>

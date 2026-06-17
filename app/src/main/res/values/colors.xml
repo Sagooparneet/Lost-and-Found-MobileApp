@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    
+    <!-- Lost & Found App Colors -->
+    <color name="primary_purple">#8B7ED8</color>
+    <color name="primary_purple_dark">#6B5B95</color>
+    <color name="primary_purple_light">#B8A9FF</color>
+    <color name="background_light">#F5F5F5</color>
+    <color name="background_color">#F5F5F5</color>
+    <color name="card_background">#FFFFFF</color>
+    <color name="text_primary">#333333</color>
+    <color name="text_secondary">#666666</color>
+    <color name="text_hint">#999999</color>
+    <color name="lost_tag">#FF4444</color>
+    <color name="found_tag">#4CAF50</color>
+    <color name="search_background">#F8F8F8</color>
+    <color name="cream">#FFFDD0</color>
+    <color name="darkPurple">#301934</color>
+    <color name="lightPurple">#E6E6FA</color>
+    <color name="mediumPurple">#9370DB</color>
+    
+    <!-- Admin Dashboard Status Colors -->
+    <color name="status_lost">#FF5722</color>
+    <color name="status_found">#4CAF50</color>
+    <color name="status_received">#2196F3</color>
+    <color name="status_pending">#FF9800</color>
+    <color name="status_default">#9E9E9E</color>
+    
+    <!-- Enhanced Item Status Colors -->
+    <color name="status_active">#4CAF50</color>
+    <color name="status_requested">#2196F3</color>
+    <color name="status_returned">#9C27B0</color>
+    <color name="status_donation_pending">#FF9800</color>
+    <color name="status_donation_ready">#FF5722</color>
+    <color name="status_donated">#795548</color>
+    
+    <!-- Warning Colors -->
+    <color name="warning_orange">#FF9800</color>
+    <color name="warning_red">#F44336</color>
+    
+    <!-- Material Design Colors -->
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+</resources>

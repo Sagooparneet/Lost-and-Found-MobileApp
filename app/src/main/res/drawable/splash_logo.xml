@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="120dp"
+    android:viewportWidth="120"
+    android:viewportHeight="120">
+    
+    <!-- Circular background -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M 60,10 A 50,50 0 1,1 60,110 A 50,50 0 1,1 60,10 Z" />
+    
+    <!-- Magnifying glass circle -->
+    <path
+        android:fillColor="#8B7ED8"
+        android:pathData="M 52,35 A 20,20 0 1,0 52,75 A 20,20 0 1,0 52,35 Z M 52,70 A 15,15 0 1,1 52,40 A 15,15 0 1,1 52,70 Z" />
+    
+    <!-- Magnifying glass handle -->
+    <path
+        android:fillColor="#8B7ED8"
+        android:pathData="M 66,66 L 64,64 L 78,78 L 82,82 L 86,78 L 82,74 L 66,66 Z" />
+    
+    <!-- Location pin inside magnifying glass -->
+    <path
+        android:fillColor="#FFD700"
+        android:pathData="M 52,47 C 49.2,47 47,49.2 47,52 C 47,55.5 52,62 52,62 C 52,62 57,55.5 57,52 C 57,49.2 54.8,47 52,47 Z M 52,53.5 C 51,53.5 50.2,52.7 50.2,51.7 C 50.2,50.7 51,49.9 52,49.9 C 53,49.9 53.8,50.7 53.8,51.7 C 53.8,52.7 53,53.5 52,53.5 Z" />
+    
+    <!-- Sparkle effects -->
+    <path
+        android:fillColor="#FFD700"
+        android:pathData="M 38,42 L 35,45 L 38,48 L 41,45 Z" />
+    <path
+        android:fillColor="#FFD700"
+        android:pathData="M 66,42 L 63,45 L 66,48 L 69,45 Z" />
+    <path
+        android:fillColor="#FFD700"
+        android:pathData="M 38,62 L 35,65 L 38,68 L 41,65 Z" />
+</vector>
